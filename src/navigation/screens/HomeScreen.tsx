@@ -1,10 +1,11 @@
 import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
+import ProductsList from "../../components/ProductsList";
 
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>HOME</Text>
+      <ProductsList />
     </View>
   );
 };
