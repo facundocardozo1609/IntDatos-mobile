@@ -5,10 +5,11 @@ import { SUPERMARKETS } from "../mocks/supermarkets";
 
 interface Props {
   id: string;
+  onPressProduct: (id: string) => void;
 }
 
-const ProductListItem: React.FC<Props> = (props) => {
-  const product = PRODUCTS.find((product) => product.id === props.id);
+const ProductListItem: React.FC<Props> = ({ id, onPressProduct }) => {
+  const product = PRODUCTS.find((product) => product.id === id);
   const supermaket = SUPERMARKETS.find(
     (supermarket) => supermarket.id === product?.supermarket
   );
@@ -20,7 +21,7 @@ const ProductListItem: React.FC<Props> = (props) => {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => console.log("PRESS")}
+      onPress={() => onPressProduct(product.id)}
     >
       <Image source={product?.image} style={{ height: "100%", width: 100 }} />
       <View style={styles.textContainer}>

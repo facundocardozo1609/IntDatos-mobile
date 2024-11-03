@@ -4,7 +4,11 @@ import { PRODUCTS } from "../mocks/products";
 import ProductListItem from "./ProductListItem";
 import SearchBar from "./SearchBar";
 
-const ProductsList: React.FC = () => {
+interface Props {
+  onPressProduct: (id: string) => void;
+}
+
+const ProductsList: React.FC<Props> = ({ onPressProduct }) => {
   const [products, setProducts] = React.useState(PRODUCTS);
 
   const onSearch = (text: string) => {
@@ -20,7 +24,9 @@ const ProductsList: React.FC = () => {
       data={products}
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
-      renderItem={({ item }) => <ProductListItem id={item.id} />}
+      renderItem={({ item }) => (
+        <ProductListItem id={item.id} onPressProduct={onPressProduct} />
+      )}
       ListHeaderComponent={<SearchBar onSearch={onSearch} />}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
       ListFooterComponent={<View style={styles.footer} />}
