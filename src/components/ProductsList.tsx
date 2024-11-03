@@ -5,13 +5,23 @@ import ProductListItem from "./ProductListItem";
 import SearchBar from "./SearchBar";
 
 const ProductsList: React.FC = () => {
+  const [products, setProducts] = React.useState(PRODUCTS);
+
+  const onSearch = (text: string) => {
+    if (!text) {
+      setProducts(PRODUCTS);
+      return;
+    }
+    setProducts(PRODUCTS.filter((product) => product.name.includes(text)));
+  };
+
   return (
     <FlatList
-      data={PRODUCTS}
+      data={products}
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
       renderItem={({ item }) => <ProductListItem id={item.id} />}
-      ListHeaderComponent={<SearchBar />}
+      ListHeaderComponent={<SearchBar onSearch={onSearch} />}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
       ListFooterComponent={<View style={styles.footer} />}
     />

@@ -1,7 +1,11 @@
 import * as React from "react";
-import { Text, View, StyleSheet, TextInput } from "react-native";
+import { StyleSheet, TextInput } from "react-native";
 
-const SearchBar: React.FC = () => {
+interface Props {
+  onSearch: (name: string) => void;
+}
+
+const SearchBar: React.FC<Props> = (props) => {
   const [name, setName] = React.useState<string>();
   return (
     <TextInput
@@ -10,7 +14,7 @@ const SearchBar: React.FC = () => {
       placeholder="Nombre del producto"
       enterKeyHint="search"
       onChangeText={setName}
-      onKeyPress={(e) => console.log(e.nativeEvent.key)}
+      onSubmitEditing={(e) => props.onSearch(e.nativeEvent.text)}
     />
   );
 };
