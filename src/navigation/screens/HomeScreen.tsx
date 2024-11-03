@@ -13,5 +13,8 @@ const HomeScreen = () => {
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: "white",
+    flex: 1,
+  },
 });

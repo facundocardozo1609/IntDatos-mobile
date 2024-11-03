@@ -5,5 +5,5 @@ export type Product = {
   name: string;
   price: number;
   image: ImageSourcePropType;
-  supermarkets: string[];
+  supermarket: string;
 };

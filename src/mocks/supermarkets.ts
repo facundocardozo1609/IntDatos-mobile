@@ -4,11 +4,11 @@ export const SUPERMARKETS: Supermarket[] = [
   {
     id: "1",
     name: "DISCO",
-    logo: require("../../assets/jpg/disco.jpg"),
+    logo: require("../../assets/png/disco.png"),
   },
   {
     id: "2",
     name: "TATA",
-    logo: require("../../assets/jpg/tata.jpg"),
+    logo: require("../../assets/png/tata.png"),
   },
 ];
