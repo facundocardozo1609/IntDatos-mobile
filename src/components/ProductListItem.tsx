@@ -39,8 +39,6 @@ export default ProductListItem;
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 0.5,
-    borderRadius: 4,
     padding: 10,
     flexDirection: "row",
   },
