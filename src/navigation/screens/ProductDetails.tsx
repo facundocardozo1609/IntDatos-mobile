@@ -1,9 +1,10 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import * as React from "react";
-import { Text, View, StyleSheet, Image } from "react-native";
+import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
 import { AppStackParamList } from "../types";
 import { PRODUCTS } from "../../mocks/products";
 import { SUPERMARKETS } from "../../mocks/supermarkets";
+import CheaperProductsList from "../../components/CheaperProductsList";
 
 type Props = NativeStackScreenProps<AppStackParamList, "ProductDetails">;
 
@@ -19,15 +20,20 @@ const ProductDetails: React.FC<Props> = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.productImage} source={product.image} />
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>{product?.name}</Text>
-        <View style={styles.row}>
-          <Text style={styles.label}>Precio: </Text>
-          <Text style={styles.price}>{`$${product?.price}`}</Text>
-          <Image source={supermaket?.logo} style={styles.supermarketLogo} />
+      <ScrollView>
+        <View style={styles.detailsContainer}>
+          <Image style={styles.productImage} source={product.image} />
+          <View style={styles.textContainer}>
+            <Text style={styles.title}>{product?.name}</Text>
+            <View style={styles.row}>
+              <Text style={styles.label}>Precio: </Text>
+              <Text style={styles.price}>{`$${product?.price}`}</Text>
+              <Image source={supermaket?.logo} style={styles.supermarketLogo} />
+            </View>
+          </View>
         </View>
-      </View>
+        <CheaperProductsList productId={product.id} />
+      </ScrollView>
     </View>
   );
 };
@@ -39,10 +45,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
+  detailsContainer: {
+    borderWidth: 0.5,
+    borderRadius: 4,
+    borderColor: "#D3D3D3",
+    marginHorizontal: 20,
+    marginTop: 20,
+    marginBottom: 40,
+  },
   productImage: {
-    height: "50%",
+    height: 300,
     marginVertical: 20,
-    width: "100%",
+    maxWidth: "100%",
+    resizeMode: "contain",
   },
   price: {
     fontSize: 25,
