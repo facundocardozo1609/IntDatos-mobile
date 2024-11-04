@@ -1,33 +1,31 @@
 import * as React from "react";
 import { StyleSheet, FlatList, View } from "react-native";
-import { PRODUCTS } from "../mocks/products";
 import ProductListItem from "./ProductListItem";
 import SearchBar from "./SearchBar";
+import { useGetProducts } from "../queries";
 
 interface Props {
   onPressProduct: (id: string) => void;
 }
 
 const ProductsList: React.FC<Props> = ({ onPressProduct }) => {
-  const [products, setProducts] = React.useState(PRODUCTS);
+  const [name, setName] = React.useState("leche");
+  const productsQuery = useGetProducts(name);
 
-  const onSearch = (text: string) => {
-    if (!text) {
-      setProducts(PRODUCTS);
-      return;
-    }
-    setProducts(PRODUCTS.filter((product) => product.name.includes(text)));
-  };
+  if (!productsQuery.data) {
+    return null;
+  }
 
   return (
     <FlatList
-      data={products}
+      data={productsQuery.data}
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
+      keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
-        <ProductListItem id={item.id} onPressProduct={onPressProduct} />
+        <ProductListItem product={item} onPressProduct={onPressProduct} />
       )}
-      ListHeaderComponent={<SearchBar onSearch={onSearch} />}
+      ListHeaderComponent={<SearchBar onSearch={setName} />}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
       ListFooterComponent={<View style={styles.footer} />}
     />

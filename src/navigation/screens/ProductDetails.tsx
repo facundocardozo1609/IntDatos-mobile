@@ -2,19 +2,15 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import * as React from "react";
 import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
 import { AppStackParamList } from "../types";
-import { PRODUCTS } from "../../mocks/products";
-import { SUPERMARKETS } from "../../mocks/supermarkets";
 import CheaperProductsList from "../../components/CheaperProductsList";
+import { useGetProduct } from "../../queries";
 
 type Props = NativeStackScreenProps<AppStackParamList, "ProductDetails">;
 
 const ProductDetails: React.FC<Props> = ({ route }) => {
-  const product = PRODUCTS.find((product) => product.id === route.params.id);
-  const supermaket = SUPERMARKETS.find(
-    (supermarket) => supermarket.id === product?.supermarket
-  );
+  const productQuery = useGetProduct(route.params.id);
 
-  if (!product) {
+  if (!productQuery.data) {
     return null;
   }
 
@@ -22,17 +18,20 @@ const ProductDetails: React.FC<Props> = ({ route }) => {
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.detailsContainer}>
-          <Image style={styles.productImage} source={product.image} />
+          <Image
+            style={styles.productImage}
+            source={{ uri: productQuery.data.imagenUrl }}
+          />
           <View style={styles.textContainer}>
-            <Text style={styles.title}>{product?.name}</Text>
+            <Text style={styles.title}>{productQuery.data.nombre}</Text>
             <View style={styles.row}>
               <Text style={styles.label}>Precio: </Text>
-              <Text style={styles.price}>{`$${product?.price}`}</Text>
-              <Image source={supermaket?.logo} style={styles.supermarketLogo} />
+              <Text style={styles.price}>{`$${productQuery.data.precio}`}</Text>
+              {/* <Image source={supermaket?.logo} style={styles.supermarketLogo} /> */}
             </View>
           </View>
         </View>
-        <CheaperProductsList productId={product.id} />
+        {/* <CheaperProductsList productId={product.id} /> */}
       </ScrollView>
     </View>
   );

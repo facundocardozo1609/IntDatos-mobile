@@ -1,34 +1,28 @@
 import * as React from "react";
 import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { PRODUCTS } from "../mocks/products";
-import { SUPERMARKETS } from "../mocks/supermarkets";
+import { Product } from "../models/products";
+import { SUPERMARKETS_LOGO } from "../constants";
 
 interface Props {
-  id: string;
+  product: Product;
   onPressProduct: (id: string) => void;
 }
 
-const ProductListItem: React.FC<Props> = ({ id, onPressProduct }) => {
-  const product = PRODUCTS.find((product) => product.id === id);
-  const supermaket = SUPERMARKETS.find(
-    (supermarket) => supermarket.id === product?.supermarket
-  );
-
-  if (!product) {
-    return null;
-  }
-
+const ProductListItem: React.FC<Props> = ({ product, onPressProduct }) => {
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={() => onPressProduct(product.id)}
     >
-      <Image source={product?.image} style={{ height: "100%", width: 100 }} />
+      <Image
+        source={{ uri: product?.imagenUrl }}
+        style={{ height: "100%", width: 100 }}
+      />
       <View style={styles.textContainer}>
-        <Text style={styles.title}>{product?.name}</Text>
-        <Text style={styles.price}>{`$${product?.price}`}</Text>
+        <Text style={styles.title}>{product.nombre}</Text>
+        <Text style={styles.price}>{`$${product.precio}`}</Text>
         <Image
-          source={supermaket?.logo}
+          source={SUPERMARKETS_LOGO[product.nombreSuper]}
           style={{ height: 50, width: 50, resizeMode: "contain" }}
         />
       </View>

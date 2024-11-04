@@ -1,9 +1,11 @@
 import { ImageSourcePropType } from "react-native";
+import { SupermarketName } from "./supermarket";
 
 export type Product = {
   id: string;
-  name: string;
-  price: number;
-  image: ImageSourcePropType;
-  supermarket: string;
+  nombre: string;
+  fecha: string;
+  precio: number;
+  imagenUrl: string;
+  nombreSuper: SupermarketName;
 };
