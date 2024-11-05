@@ -8,8 +8,12 @@ import { SUPERMARKETS_LOGO } from "../../constants";
 
 type Props = NativeStackScreenProps<AppStackParamList, "ProductDetails">;
 
-const ProductDetails: React.FC<Props> = ({ route }) => {
+const ProductDetails: React.FC<Props> = ({ route, navigation }) => {
   const productQuery = useGetProduct(route.params.id);
+
+  const handleOnPressProduct = (id: string) => {
+    navigation.push("ProductDetails", { id });
+  };
 
   if (!productQuery.data) {
     return null;
@@ -35,7 +39,10 @@ const ProductDetails: React.FC<Props> = ({ route }) => {
             </View>
           </View>
         </View>
-        <CheaperProductsList productId={route.params.id} />
+        <CheaperProductsList
+          productId={route.params.id}
+          onPressProduct={handleOnPressProduct}
+        />
       </ScrollView>
     </View>
   );

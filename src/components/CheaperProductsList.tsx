@@ -2,26 +2,29 @@ import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import ProductListItem from "./ProductListItem";
 import { useGetProduct, useGetProducts } from "../queries";
+import { useName } from "../context/useName";
 
 interface Props {
   productId: string;
+  onPressProduct: (id: string) => void;
 }
 
 const CheaperProductsList: React.FC<Props> = (props) => {
+  const { name } = useName();
   const productQuery = useGetProduct(props.productId);
-  const productsQuery = useGetProducts("leche");
+  const productsQuery = useGetProducts(name);
 
   const cheaperProducts = React.useMemo(() => {
     if (productsQuery.data && productQuery.data) {
       return productsQuery.data.filter(
         (product) =>
-          product.precio <= productQuery.data.precio &&
+          product.precio < productQuery.data.precio &&
           product.id !== productQuery.data.id
       );
     }
   }, [productQuery.data]);
 
-  if (!cheaperProducts) {
+  if (!cheaperProducts || cheaperProducts.length === 0) {
     return null;
   }
 
@@ -32,7 +35,7 @@ const CheaperProductsList: React.FC<Props> = (props) => {
         <ProductListItem
           key={product.id}
           product={product}
-          onPressProduct={() => {}}
+          onPressProduct={() => props.onPressProduct(product.id)}
         />
       ))}
     </View>
