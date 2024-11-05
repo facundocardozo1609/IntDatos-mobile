@@ -11,8 +11,16 @@ const AppStackNavigatior = () => {
   return (
     <NavigationContainer>
       <AppStack.Navigator>
-        <AppStack.Screen name="Home" component={HomeScreen} />
-        <AppStack.Screen name="ProductDetails" component={ProductDetails} />
+        <AppStack.Screen
+          options={{ headerTitle: "Lista" }}
+          name="Home"
+          component={HomeScreen}
+        />
+        <AppStack.Screen
+          options={{ headerTitle: "Producto" }}
+          name="ProductDetails"
+          component={ProductDetails}
+        />
       </AppStack.Navigator>
     </NavigationContainer>
   );
