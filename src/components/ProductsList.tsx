@@ -35,7 +35,7 @@ const ProductsList: React.FC<Props> = ({ onPressProduct }) => {
       <View style={styles.container}>
         <SearchBar onSearch={setName} />
         <View style={styles.messageContainer}>
-          <EmptyStateMessage message=">No se encontraron productos" />
+          <EmptyStateMessage message="No se encontraron productos" />
         </View>
       </View>
     );
