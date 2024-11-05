@@ -1,6 +1,13 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import * as React from "react";
-import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import { AppStackParamList } from "../types";
 import CheaperProductsList from "../../components/CheaperProductsList";
 import { useGetProduct } from "../../queries";
@@ -14,6 +21,14 @@ const ProductDetails: React.FC<Props> = ({ route, navigation }) => {
   const handleOnPressProduct = (id: string) => {
     navigation.push("ProductDetails", { id });
   };
+
+  if (productQuery.isLoading) {
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size={"large"} />
+      </View>
+    );
+  }
 
   if (!productQuery.data) {
     return null;
@@ -94,5 +109,10 @@ const styles = StyleSheet.create({
     maxWidth: 100,
     resizeMode: "contain",
     marginLeft: 20,
+  },
+  loaderContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
   },
 });

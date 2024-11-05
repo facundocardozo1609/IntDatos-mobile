@@ -45,7 +45,6 @@ const ProductsList: React.FC<Props> = ({ onPressProduct }) => {
     <FlatList
       data={productsQuery.data}
       style={styles.container}
-      contentContainerStyle={styles.contentContainer}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
         <ProductListItem product={item} onPressProduct={onPressProduct} />
@@ -61,9 +60,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
-  },
-  contentContainer: {
-    marginTop: 10,
   },
   footer: {
     height: 50,
