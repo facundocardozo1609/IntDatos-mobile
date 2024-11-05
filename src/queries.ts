@@ -8,7 +8,7 @@ export const useGetProducts = (name: string) => {
     queryKey: ["products", name],
     queryFn: async ({ queryKey }) => {
       const { productos } = await getProducts(queryKey[1]);
-      return uniqBy(productos, "id");
+      return productos;
     },
   });
 };

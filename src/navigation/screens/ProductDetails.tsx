@@ -4,6 +4,7 @@ import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
 import { AppStackParamList } from "../types";
 import CheaperProductsList from "../../components/CheaperProductsList";
 import { useGetProduct } from "../../queries";
+import { SUPERMARKETS_LOGO } from "../../constants";
 
 type Props = NativeStackScreenProps<AppStackParamList, "ProductDetails">;
 
@@ -27,11 +28,14 @@ const ProductDetails: React.FC<Props> = ({ route }) => {
             <View style={styles.row}>
               <Text style={styles.label}>Precio: </Text>
               <Text style={styles.price}>{`$${productQuery.data.precio}`}</Text>
-              {/* <Image source={supermaket?.logo} style={styles.supermarketLogo} /> */}
+              <Image
+                source={SUPERMARKETS_LOGO[productQuery.data.nombreSuper]}
+                style={styles.supermarketLogo}
+              />
             </View>
           </View>
         </View>
-        {/* <CheaperProductsList productId={product.id} /> */}
+        <CheaperProductsList productId={route.params.id} />
       </ScrollView>
     </View>
   );
@@ -82,5 +86,6 @@ const styles = StyleSheet.create({
     height: 80,
     maxWidth: 100,
     resizeMode: "contain",
+    marginLeft: 20,
   },
 });

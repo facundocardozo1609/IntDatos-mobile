@@ -14,10 +14,7 @@ const ProductListItem: React.FC<Props> = ({ product, onPressProduct }) => {
       style={styles.container}
       onPress={() => onPressProduct(product.id)}
     >
-      <Image
-        source={{ uri: product?.imagenUrl }}
-        style={{ height: "100%", width: 100 }}
-      />
+      <Image source={{ uri: product?.imagenUrl }} style={styles.image} />
       <View style={styles.textContainer}>
         <Text style={styles.title}>{product.nombre}</Text>
         <Text style={styles.price}>{`$${product.precio}`}</Text>
@@ -36,9 +33,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     flexDirection: "row",
-  },
-  logoContainer: {
-    flexDirection: "row",
+    alignItems: "center",
   },
   price: {
     fontSize: 20,
@@ -52,5 +47,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 10,
+  },
+  image: {
+    height: "100%",
+    width: 80,
+    resizeMode: "contain",
   },
 });
