@@ -1,15 +1,10 @@
 import * as React from "react";
-import {
-  StyleSheet,
-  FlatList,
-  View,
-  ActivityIndicator,
-  Text,
-} from "react-native";
+import { StyleSheet, FlatList, View, ActivityIndicator } from "react-native";
 import ProductListItem from "./ProductListItem";
 import SearchBar from "./SearchBar";
 import { useGetProducts } from "../queries";
 import { useName } from "../context/useName";
+import EmptyStateMessage from "./EmptyStateMessage";
 
 interface Props {
   onPressProduct: (id: string) => void;
@@ -31,9 +26,6 @@ const ProductsList: React.FC<Props> = ({ onPressProduct }) => {
     return (
       <View style={styles.container}>
         <SearchBar onSearch={setName} />
-        <View style={styles.messageContainer}>
-          <Text>Ingrese el nombre de un producto</Text>
-        </View>
       </View>
     );
   }
@@ -43,7 +35,7 @@ const ProductsList: React.FC<Props> = ({ onPressProduct }) => {
       <View style={styles.container}>
         <SearchBar onSearch={setName} />
         <View style={styles.messageContainer}>
-          <Text>No se encontraron productos</Text>
+          <EmptyStateMessage message=">No se encontraron productos" />
         </View>
       </View>
     );
