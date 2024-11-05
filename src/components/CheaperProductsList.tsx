@@ -16,11 +16,16 @@ const CheaperProductsList: React.FC<Props> = (props) => {
 
   const cheaperProducts = React.useMemo(() => {
     if (productsQuery.data && productQuery.data) {
-      return productsQuery.data.filter(
-        (product) =>
-          product.precio < productQuery.data.precio &&
+      return productsQuery.data.filter((product) => {
+        const parsedProductPrice = Number(product.precio.replace(",", "."));
+        const parsedCurrentPrice = Number(
+          productQuery.data.precio.replace(",", ".")
+        );
+        return (
+          parsedProductPrice < parsedCurrentPrice &&
           product.id !== productQuery.data.id
-      );
+        );
+      });
     }
   }, [productQuery.data]);
 

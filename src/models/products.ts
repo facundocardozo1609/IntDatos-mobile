@@ -5,7 +5,7 @@ export type Product = {
   id: string;
   nombre: string;
   fecha: string;
-  precio: number;
+  precio: string;
   imagenUrl: string;
   nombreSuper: SupermarketName;
 };
